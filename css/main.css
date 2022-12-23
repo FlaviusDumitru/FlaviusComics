@@ -1,0 +1,43 @@
+header {
+    padding:0.5%;
+    text-align: center;
+    background: #338b79;
+    color: white;
+}
+footer{
+    padding: 0.5%;
+    text-align: center;
+    background: #338b79;
+    color: white; 
+}
+ul {
+    text-align: center;
+    color: rgb(255, 255, 255);
+    border-radius: 10%;
+}
+.button {
+    background-color:#338b79 ; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10%;
+  }
+.button:hover{
+    background-color:#297365 ;
+}
+  body{
+    background: #12a185;
+  }
+h2{
+    text-align: center;
+}
+figure{
+    text-align: center;
+}
+p{
+    text-align: center;
+}

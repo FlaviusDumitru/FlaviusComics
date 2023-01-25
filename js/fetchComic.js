@@ -69,16 +69,7 @@ function getComic(which) {
                 document.getElementById("sista").disabled = true;
                 document.getElementById("nasta").disabled = true;
             }
-/*            if (document.comic > 1) {
-                getComic(document.comic - 1);
-            }
-            if (document.comic < document.latestComic) {
-                getComic(document.comic + 1);
-            }
-            if (document.latestComic < data.num) {
-                document.latestComic = data.num;
-            }
-        */        })
+                })
 }
 
 function appendComic(data) {

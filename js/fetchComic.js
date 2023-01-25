@@ -5,20 +5,44 @@ window.onload = function () {
     // Ordningsknapparna
 
     // Första-knappen visar den första comic: en i listan då man klickar på knappen
-    document.getElementById('forsta').addEventListener('click', function () { getComic(1) })
+    document.getElementById('forsta').addEventListener('click', function () {
+        if (!this.disabled) {
+            getComic(1);
+        }
+    })
+
     // Visar sista comic: en
-    document.getElementById('sista').addEventListener('click', function () { getComic('latest') })
+    document.getElementById('sista').addEventListener('click', function () {
+        if (!this.disabled) {
+            getComic('latest');
+        }
+    })
     // Tar det nuvaranda comic: en som visas och flyttar ett steg framåt i listan
-    document.getElementById('nasta').addEventListener('click', function () { getComic(document.currentComic + 1) })
+    document.getElementById('nasta').addEventListener('click', function () {
+        if (!this.disabled) {
+            getComic(document.currentComic + 1);
+        }
+    })
+
     // Tar det nuvaranda comic: en som visas och flyttar ett steg bakåt i listan
-    document.getElementById('forra').addEventListener('click', function () { getComic(document.currentComic - 1) })
+    document.getElementById('forra').addEventListener('click', function () {
+        if (!this.disabled) {
+            getComic(document.currentComic - 1)
+        }
+    })
+
+
     // Visar slumpmässig comic
-    document.getElementById('slumpa').addEventListener('click', function () { getComic(Math.floor((Math.random() * document.maxComic))) })
+    document.getElementById('slumpa').addEventListener('click', function () {
+        if (!this.disabled) {
+            getComic(Math.floor((Math.random() * document.maxComic)))
+        }
+    })
 
 
 }
 
-    // Fetch: ar comic: en från comic API:et 
+// Fetch: ar comic: en från comic API:et 
 function getComic(which) {
     fetch('https://xkcd.vercel.app/?comic=' + which)
         .then(function (response) {
@@ -31,7 +55,30 @@ function getComic(which) {
                 document.maxComic = data.num;
             }
             appendComic(data);
-        })
+            // kollar att alla buttons är på
+            document.getElementById("forsta").disabled = false;
+            document.getElementById("sista").disabled = false;
+            document.getElementById("forra").disabled = false;
+            document.getElementById("nasta").disabled = false;
+
+            if (data.num === 1) {
+                document.getElementById("forsta").disabled = true;
+                document.getElementById("forra").disabled = true;
+            }
+            if (data.num === document.maxComic) {
+                document.getElementById("sista").disabled = true;
+                document.getElementById("nasta").disabled = true;
+            }
+/*            if (document.comic > 1) {
+                getComic(document.comic - 1);
+            }
+            if (document.comic < document.latestComic) {
+                getComic(document.comic + 1);
+            }
+            if (document.latestComic < data.num) {
+                document.latestComic = data.num;
+            }
+        */        })
 }
 
 function appendComic(data) {
@@ -45,7 +92,7 @@ function appendComic(data) {
     text.innerHTML = data.title;
     mainComic.appendChild(text);
 
-    // Hämtar information om comic: ens datum och visar 
+    // Hämtar information om comic: ens datum och visar den
     let datum = new Date(data.year, data.month, data.day);
     let dateName = document.createElement('p');
     dateName.innerHTML = datum.toLocaleDateString();
@@ -58,7 +105,7 @@ function appendComic(data) {
     image.src = data.img;
     // Visar bilden
     figure.appendChild(image);
-    
+
     let figcaption = document.createElement("figcaption");
     figcaption.innerHTML = "Serie nummer: " + data.num;
     // Visar numret på serien
